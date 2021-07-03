@@ -69,7 +69,7 @@ img.addEventListener('load', () => {
   setInterval(() => {
     switch (true) {
       case bottomDownPressed:
-        if (pY <= 552) {
+        if (pY <= 545) {
           pY += 10;
         }
         cycle = (cycle + 1) % shots;
