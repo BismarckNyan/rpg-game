@@ -7,10 +7,10 @@ const spriteW = 48;
 const spriteH = 48;
 const shots = 3;
 let cycle = 0;
-let bottomDownPressed = false;
-let bottomUpPressed = false;
-let bottomLeftPressed = false;
-let bottomRightPressed = false;
+let bottomPressed= false;
+let topPressed = false;
+let leftPressed = false;
+let rightPressed = false;
 let pY = 300;
 let pX = 275;
 let pDir = 0;
@@ -18,19 +18,19 @@ function keyDownHandler(e) {
   switch (e.key) {
     case 'ArrowDown':
     case 'Down':
-      bottomDownPressed = true;
+      bottomPressed = true;
       break;
     case 'ArrowUp':
     case 'Up':
-      bottomUpPressed = true;
+      topPressed = true;
       break;
     case 'ArrowLeft':
     case 'Left':
-      bottomLeftPressed = true;
+      leftPressed = true;
       break;
     case 'ArrowRight':
     case 'Right':
-      bottomRightPressed = true;
+      rightPressed = true;
       break;
     default:
       break;
@@ -40,19 +40,19 @@ function keyUpHandler(e) {
   switch (e.key) {
     case 'ArrowDown':
     case 'Down':
-      bottomDownPressed = false;
+      bottomPressed= false;
       break;
     case 'ArrowUp':
     case 'Up':
-      bottomUpPressed = false;
+      topPressed = false;
       break;
     case 'ArrowLeft':
     case 'Left':
-      bottomLeftPressed = false;
+      leftPressed = false;
       break;
     case 'ArrowRight':
     case 'Right':
-      bottomRightPressed = false;
+      rightPressed = false;
       break;
     default:
       break;
@@ -68,28 +68,28 @@ img.src = Male3Walk;
 img.addEventListener('load', () => {
   setInterval(() => {
     switch (true) {
-      case bottomDownPressed:
+      case bottomPressed:
         if (pY <= 545) {
           pY += 10;
         }
         cycle = (cycle + 1) % shots;
         pDir = 0;
         break;
-      case bottomUpPressed:
+      case topPressed:
         if (pY >= 5) {
           pY -= 10;
         }
         cycle = (cycle + 1) % shots;
         pDir = 144;
         break;
-      case bottomLeftPressed:
+      case leftPressed:
         if (pX >= 5) {
           pX -= 10;
         }
         cycle = (cycle + 1) % shots;
         pDir = 48;
         break;
-      case bottomRightPressed:
+      case rightPressed:
         if (pX <= 552) {
           pX += 10;
         }
