@@ -34,7 +34,10 @@ class PositionedObject {
       x, y, width, height,
     } = this;
     return {
-      x, y, width, height,
+      x,
+      y,
+      width,
+      height,
     };
   }
 
