@@ -26,6 +26,7 @@ class ClientEngine {
 
   start() {
     this.loop();
+    this.focus();
   }
 
   loop(timestamp) {

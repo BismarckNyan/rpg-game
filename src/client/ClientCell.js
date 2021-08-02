@@ -30,6 +30,7 @@ class ClientCell extends PositionedObject {
 
   initGameObjects() {
     const { cellCfg, objectClasses } = this;
+    const { playerName } = this.cfg.world.game.cfg;
     this.objects = cellCfg.map((layer, layerId) => layer.map((objCfg) => {
       let ObjectClass;
       if (objCfg.class) {
@@ -38,7 +39,9 @@ class ClientCell extends PositionedObject {
         ObjectClass = ClientGameObject;
       }
 
-      return new ObjectClass({ cell: this, objCfg, layerId });
+      return new ObjectClass({
+        cell: this, objCfg, layerId, playerName,
+      });
     }));
   }
 
