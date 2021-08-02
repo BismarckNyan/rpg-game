@@ -1,5 +1,6 @@
 import PositionedObject from '../common/PositionedObject';
 import ClientGameObject from './ClientGameObject';
+import ClientPlayer from './ClientPlayer';
 
 class ClientCell extends PositionedObject {
   constructor(cfg) {
@@ -15,6 +16,11 @@ class ClientCell extends PositionedObject {
         y: cellWidth * cfg.cellRow,
         width: cellWidth,
         height: cellHeight,
+        col: cfg.cellCol,
+        row: cfg.cellRow,
+        objectClasses: {
+          player: ClientPlayer,
+        },
       },
       cfg,
     );
@@ -23,9 +29,17 @@ class ClientCell extends PositionedObject {
   }
 
   initGameObjects() {
-    const { cellCfg } = this;
-    // eslint-disable-next-line max-len
-    this.objects = cellCfg.map((layer, layerId) => layer.map((objCfg) => new ClientGameObject({ cell: this, objCfg, layerId })));
+    const { cellCfg, objectClasses } = this;
+    this.objects = cellCfg.map((layer, layerId) => layer.map((objCfg) => {
+      let ObjectClass;
+      if (objCfg.class) {
+        ObjectClass = objectClasses[objCfg.class];
+      } else {
+        ObjectClass = ClientGameObject;
+      }
+
+      return new ObjectClass({ cell: this, objCfg, layerId });
+    }));
   }
 
   render(time, layerId) {
@@ -50,13 +64,17 @@ class ClientCell extends PositionedObject {
   removeGameObject(objToRemove) {
     const { objects } = this;
     // eslint-disable-next-line max-len
-    objects.forEach((layer, layerId) => { (this.objects[layerId] = layer.filter((obj) => obj !== objToRemove)); });
+    objects.forEach((layer, layerId) => {
+      this.objects[layerId] = layer.filter((obj) => obj !== objToRemove);
+    });
   }
 
   findObjectsByType(type) {
     let foundObjects = [];
     // eslint-disable-next-line max-len
-    this.objects.forEach((layer) => { (foundObjects = [...foundObjects, ...layer].filter((obj) => obj.type === type)); });
+    this.objects.forEach((layer) => {
+      foundObjects = [...foundObjects, ...layer].filter((obj) => obj.type === type);
+    });
     return foundObjects;
   }
 }
