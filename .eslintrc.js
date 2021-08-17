@@ -11,6 +11,8 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
-    "no-param-reassign": 0
+    "no-param-reassign": 0,
+    'max-len': 0,
+    'no-bitwise':0,
   },
 };

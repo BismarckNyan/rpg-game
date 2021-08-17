@@ -4,10 +4,27 @@ import './index.scss';
 // import terrainAtlas from './assets/terrain.png';
 // import worldCfg from './configs/world.json';
 // import sprites from './configs/sprites';
+const form = document.getElementById('nameForm');
+form.name.value = '';
 
-window.addEventListener('load', () => {
-  ClientGame.init({ tagId: 'game' });
-});
+function complete(value) {
+  ClientGame.init({ tagId: 'game', playerName: value });
+  const node = document.getElementById('start');
+  if (node.parentNode) {
+    node.parentNode.removeChild(node);
+  }
+}
+form.onsubmit = function (e) {
+  e.preventDefault();
+  const { value } = form.name;
+  if (value === '') return false;
+  complete(value);
+  return false;
+};
+
+// window.addEventListener('load', () => {
+// ClientGame.init({ tagId: 'game',playerName:form.name.value });
+// });
 
 /* const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
