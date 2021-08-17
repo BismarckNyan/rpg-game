@@ -40,7 +40,10 @@ class ClientCell extends PositionedObject {
       }
 
       return new ObjectClass({
-        cell: this, objCfg, layerId, playerName,
+        cell: this,
+        objCfg,
+        layerId,
+        playerName,
       });
     }));
   }
